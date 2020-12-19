@@ -11,7 +11,6 @@ declare(strict_types=1);
  */
 namespace app\aspect;
 
-use app\controller\Index;
 use app\service\UserService;
 use Hyperf\Di\Aop\AbstractAspect;
 use Hyperf\Di\Aop\ProceedingJoinPoint;
