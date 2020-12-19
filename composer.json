@@ -28,7 +28,7 @@
     "workerman/webman-framework": "^1.0",
     "monolog/monolog": "^2.0",
     "vlucas/phpdotenv": ">=4.1,<6.0",
-    "limingxinleo/aop-integration": "^1.0"
+    "limingxinleo/aop-integration": "dev-master"
   },
   "suggest": {
     "ext-event": "For better performance. "
