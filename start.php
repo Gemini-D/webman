@@ -12,6 +12,7 @@ use Dotenv\Dotenv;
 use support\Request;
 use support\bootstrap\Log;
 use support\bootstrap\Container;
+use support\bootstrap\aop\ClassLoader;
 
 if (method_exists('Dotenv\Dotenv', 'createUnsafeImmutable')) {
     Dotenv::createUnsafeImmutable(base_path())->load();
@@ -56,6 +57,8 @@ foreach ($property_map as $property) {
         $worker->$property = $config[$property];
     }
 }
+
+ClassLoader::init();
 
 $worker->onWorkerStart = function ($worker) {
     set_error_handler(function ($level, $message, $file = '', $line = 0, $context = []) {
