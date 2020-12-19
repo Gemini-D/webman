@@ -1,6 +1,7 @@
 <?php
 namespace app\controller;
 
+use app\service\UserService;
 use support\Request;
 
 class Index
@@ -17,7 +18,7 @@ class Index
 
     public function json(Request $request)
     {
-        return json(['code' => 0, 'msg' => 'ok']);
+        return json(['code' => 0, 'msg' => 'ok', 'data' => (new UserService())->first()]);
     }
 
     public function file(Request $request)
@@ -29,5 +30,5 @@ class Index
         }
         return json(['code' => 1, 'msg' => 'file not found']);
     }
-    
+
 }

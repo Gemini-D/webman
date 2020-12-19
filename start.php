@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 
+use Hyperf\Utils\ApplicationContext;
 use Workerman\Worker;
 use Workerman\Protocols\Http;
 use Workerman\Connection\TcpConnection;
@@ -12,7 +13,7 @@ use Dotenv\Dotenv;
 use support\Request;
 use support\bootstrap\Log;
 use support\bootstrap\Container;
-use support\bootstrap\aop\ClassLoader;
+use Hyperf\AopIntegration\ClassLoader;
 
 if (method_exists('Dotenv\Dotenv', 'createUnsafeImmutable')) {
     Dotenv::createUnsafeImmutable(base_path())->load();
@@ -26,6 +27,8 @@ $config = config('server');
 if ($timezone = config('app.default_timezone')) {
     date_default_timezone_set($timezone);
 }
+
+ClassLoader::init();
 
 Worker::$onMasterReload = function (){
     if (function_exists('opcache_get_status')) {
@@ -57,8 +60,6 @@ foreach ($property_map as $property) {
         $worker->$property = $config[$property];
     }
 }
-
-ClassLoader::init();
 
 $worker->onWorkerStart = function ($worker) {
     set_error_handler(function ($level, $message, $file = '', $line = 0, $context = []) {
